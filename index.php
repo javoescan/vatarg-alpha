@@ -245,12 +245,12 @@ function getDeparture($flight) {
 
 function getPalomarDeparture($flight) {
 	if (
-		strpos($flight["planned_route"], "ATOVO") === FALSE ||
-		strpos($flight["planned_route"], "LANDA") === FALSE ||
-		strpos($flight["planned_route"], "BIVAM") === FALSE ||
-		strpos($flight["planned_route"], "KUKEN") === FALSE ||
-		strpos($flight["planned_route"], "PAPIX") === FALSE ||
-		strpos($flight["planned_route"], "DORVO") === FALSE
+		strpos($flight["planned_route"], "ATOVO") !== FALSE ||
+		strpos($flight["planned_route"], "LANDA") !== FALSE ||
+		strpos($flight["planned_route"], "BIVAM") !== FALSE ||
+		strpos($flight["planned_route"], "KUKEN") !== FALSE ||
+		strpos($flight["planned_route"], "PAPIX") !== FALSE ||
+		strpos($flight["planned_route"], "DORVO") !== FALSE
 	) {
 		return "H080";
 	}
