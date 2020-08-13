@@ -57,13 +57,15 @@ $flights = array_filter($json["clients"], function($connection) {
 
 $argFlights = array_filter($flights, function($flight) {
 	$departure = getPrefixAirport($flight["planned_depairport"]);
-	//$destination = getPrefixAirport($flight["planned_destairport"]);
-    return $departure === "SA" /* || $destination === "SA" */ && $flight["groundspeed"] < 40;
+    return $departure === "SA";
 });
 
 $bairesDepartures = array_filter($argFlights, function($flight) use ($bairesAirports) {
 	$departure = $flight["planned_depairport"];
-	return in_array($departure, $bairesAirports);
+	$latitude = round($flight["latitude"], 0);
+	$longitude = round($flight["longitude"], 0);
+	$isOnTheGround = $latitude > -36 && $latitude < -32 && $longitude > -60 && $longitude < -56;
+	return in_array($departure, $bairesAirports) && $isOnTheGround && $flight["groundspeed"] < 40;
 });
 
 $storeData = [];
@@ -103,20 +105,26 @@ $storedData = json_decode($localFile, true);
 			<tbody id="flights">
 				<?php
 					foreach ($bairesDepartures as $flight) {
+						$departureTime = formatDepartureTime($flight["planned_deptime"]);
 						$transponder = getTransponder($flight);
+						$flightLevel = formatFlightLevel($flight["planned_altitude"]);
+						$departure = getDeparture($flight);
+						$initialClimb = getInitialClimb($flight);
+
 						if (!isset($storeData[$flight["callsign"]])) {
 							$storeData[$flight["callsign"]] = [
 								"transponder" => $transponder,
 							];
 						}
+
 						echo "<tr class='clickable-row'>";
 						echo "<td>" . $flight["callsign"] . "</td>";
-						echo "<td>" . formatDepartureTime($flight["planned_deptime"]) . "z</td>";
+						echo "<td>" . $departureTime . "z</td>";
 						echo "<td>" . $flight["planned_depairport"] . "</td>";
 						echo "<td>" . $flight["planned_destairport"] . "</td>";
-						echo "<td>" . formatFlightLevel($flight["planned_altitude"]) . "</td>";
-						echo "<td>" . getDeparture($flight) . "</td>";
-						echo "<td>" . getInitialClimb($flight) . "</td>";
+						echo "<td>" . $flightLevel . "</td>";
+						echo "<td>" . $departure . "</td>";
+						echo "<td>" . $initialClimb . "</td>";
 						echo "<td>" . $transponder . "</td>";
 						echo "</tr>";
 					}
@@ -137,6 +145,9 @@ $storedData = json_decode($localFile, true);
 				});
 				document.getElementById("search-input").value = localStorage.getItem('filter') || '';
 				$("#search-input").keyup();
+				setInterval(() => {
+					location.reload();
+				}, 60000);
 			});
 		</script>
 	</body>
@@ -233,11 +244,17 @@ function getDeparture($flight) {
 }
 
 function getSID($route, $departures) {
+	$sid = "";
 	foreach ($departures as $departure) {
 		if (strpos($route, substr($departure, 0, 3)) !== FALSE) {
-			return $departure;
+			$sid = $departure;
+			break;
 		}
 	}
+	if (strpos($sid, "EZE8") !== FALSE) {
+		return str_replace("EZE8", "PAL8", $sid);
+	}
+	return $sid;
 }
 
 function getPrefixAirport($airport) {
