@@ -58,7 +58,7 @@ $flights = array_filter($json["clients"], function($connection) {
 $argFlights = array_filter($flights, function($flight) {
 	$departure = getPrefixAirport($flight["planned_depairport"]);
 	//$destination = getPrefixAirport($flight["planned_destairport"]);
-    return $departure === "SA" /* || $destination === "SA" */;
+    return $departure === "SA" /* || $destination === "SA" */ && $flight["groundspeed"] < 40;
 });
 
 $bairesDepartures = array_filter($argFlights, function($flight) use ($bairesAirports) {
