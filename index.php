@@ -43,10 +43,26 @@
 // [qnh_i_hg] => 29.91
 // [qnh_mb] => 1013
 
+$bairesAirports = ["SAEZ", "SABE", "SADF", "SADP", "SADM"];
+
 $jsonSrc = file_get_contents("http://cluster.data.vatsim.net/vatsim-data.json");
 $json = json_decode($jsonSrc, true);
-$flights = array_filter($json["clients"], "isFlight");
-$argFlights = array_filter($flights, "isArgFlight");
+
+$flights = array_filter($json["clients"], function($connection) {
+	return $connection["clienttype"] === "PILOT";
+});
+
+$argFlights = array_filter($flights, function($flight) {
+	$departure = getPrefixAirport($flight["planned_depairport"]);
+	//$destination = getPrefixAirport($flight["planned_destairport"]);
+    return $departure === "SA" /* || $destination === "SA" */;
+});
+
+$bairesDepartures = array_filter($argFlights, function($flight) use ($bairesAirports) {
+	$departure = $flight["planned_depairport"];
+	return in_array($departure, $bairesAirports);
+});
+
 $storeData = [];
 ?>
 
@@ -58,37 +74,41 @@ $storeData = [];
 		<title>VATARG Alpha</title>
 		<link rel="shortcut icon" type="image/png" href="./favicon.png">
 		<link rel="stylesheet" href="./css/bootstrap.min.css">
+		<link rel="stylesheet" href="./css/styles.css">
 		<script src="./js/jquery-3.5.1.slim.min.js"></script>
 		<script src="./js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<h2 class="text-center">VATARG Alpha</h2>
-		<h5 class="text-center">Ordenar por FIR, Horario Salida</h5>
-  		<input class="form-control" id="search-input" type="text" placeholder="Search..">
+		<h2 class="text-center title">VATSIM Argentina Alpha System</h2>
+  		<input class="form-control text-center" id="search-input" type="text" placeholder="Filtrar">
 		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Callsign</th>
+					<th scope="col">ETD</th>
 					<th scope="col">Departure</th>
 					<th scope="col">Arrival</th>
 					<th scope="col">Altitude</th>
 					<th scope="col">SID</th>
+					<th scope="col">Initial Climb</th>
 					<th scope="col">Transponder</th>
 				</tr>
 			</thead>
 			<tbody id="flights">
 				<?php
-					foreach ($argFlights as $flight) {
+					foreach ($bairesDepartures as $flight) {
 						$transponder = getTransponder($flight);
 						$storeData[$flight["callsign"]] = [
 							"transponder" => $transponder,
 						];
-						echo "<tr>";
+						echo "<tr class='clickable-row'>";
 						echo "<td>" . $flight["callsign"] . "</td>";
+						echo "<td>" . $flight["planned_deptime"] . "z</td>";
 						echo "<td>" . $flight["planned_depairport"] . "</td>";
 						echo "<td>" . $flight["planned_destairport"] . "</td>";
 						echo "<td>" . formatFlightLevel($flight["planned_altitude"]) . "</td>";
 						echo "<td>" . getSID($flight["planned_route"]) . "</td>";
+						echo "<td>" . getInitialClimb($flight) . "</td>";
 						echo "<td>" . $transponder . "</td>";
 						echo "</tr>";
 					}
@@ -102,6 +122,9 @@ $storeData = [];
 					$("#flights tr").filter(function() {
 						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 					});
+				});
+				$('#flights').on('click', '.clickable-row', function(event) {
+					$(this).addClass('active').siblings().removeClass('active');
 				});
 			});
 		</script>
@@ -137,22 +160,15 @@ function formatFlightLevel($flightLevel) {
 		return "F" . substr($flightLevel, 2, 3);
 	} else if (strpos($flightLevel, "F") === FALSE) {
 		if (strlen($flightLevel) === 4) {
+			if ((int)$flightLevel < 3000) {
+				return "A0" . substr($flightLevel, 0, 2);
+			}
 			return "F0" . substr($flightLevel, 0, 2);
 		} else {
 			return "F" . substr($flightLevel, 0, 3);
 		}
 	}
     return $flightLevel;
-}
-
-function isFlight($connection) {
-	return $connection["clienttype"] === "PILOT";
-} 
-
-function isArgFlight($flight) {
-	$departure = getPrefixAirport($flight["planned_depairport"]);
-	$destination = getPrefixAirport($flight["planned_destairport"]);
-    return $departure === "SA" || $destination === "SA";
 }
 
 function getSID($route) {
@@ -162,6 +178,19 @@ function getSID($route) {
 
 function getPrefixAirport($airport) {
 	return substr($airport, 0, 2);
+}
+
+function getInitialClimb($flight) {
+	switch($flight["planned_depairport"]) {
+		case "SABE":
+			return "F060";
+		case "SAEZ":
+			return "F050";
+		case "SADP":
+			return "A030";
+		default:
+			return formatFlightLevel($flight["planned_altitude"]);
+	}
 }
 
 $encodedString = json_encode($storeData);

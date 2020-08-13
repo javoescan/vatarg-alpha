@@ -1,0 +1,13 @@
+.title {
+    margin: 10px;
+}
+
+#search-input {
+    margin: 20px auto;
+    width: 90%;
+}
+
+.active {
+    background-color: #2970b7!important;
+    color: white;
+}
