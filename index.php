@@ -1,9 +1,9 @@
 <?php
 
 // EXAMPLE
-// [callsign] => ARG1538
-// [cid] => 1135557
-// [realname] => Jose Manuel Perez Guerrero SAEZ
+// [callsign] => 
+// [cid] => 
+// [realname] =>
 // [clienttype] => PILOT
 // [frequency] => 
 // [latitude] => -34.55429
