@@ -233,7 +233,7 @@ function getDeparture($flight) {
 		case "SAEZ":
 			return getSID($flight["planned_route"], $ezeizaDepartures);
 		case "SADP":
-			return "R280";
+			return getPalomarDeparture($flight);
 		case "SADF":
 			return "RWY HDG";
 		case "SADM":
@@ -241,6 +241,20 @@ function getDeparture($flight) {
 		default:
 			return formatFlightLevel($flight["planned_altitude"]);
 	}
+}
+
+function getPalomarDeparture($flight) {
+	if (
+		strpos($flight["planned_route"], "ATOVO") === FALSE ||
+		strpos($flight["planned_route"], "LANDA") === FALSE ||
+		strpos($flight["planned_route"], "BIVAM") === FALSE ||
+		strpos($flight["planned_route"], "KUKEN") === FALSE ||
+		strpos($flight["planned_route"], "PAPIX") === FALSE ||
+		strpos($flight["planned_route"], "DORVO") === FALSE
+	) {
+		return "H080";
+	}
+	return "R280";
 }
 
 function getSID($route, $departures) {
