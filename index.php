@@ -260,7 +260,9 @@ function getPalomarDeparture($flight) {
 function getSID($route, $departures) {
 	$sid = "";
 	foreach ($departures as $departure) {
-		if (strpos($route, substr($departure, 0, 3)) !== FALSE) {
+		$matchesSid = strpos($route, substr($departure, 0, 3)) !== FALSE;
+		$matchesTransition = !$matchesSid && strpos($route, substr($departure, strpos($departure, "."), 3)) !== FALSE;
+		if ($matchesSid || $matchesTransition) {
 			$sid = $departure;
 			break;
 		}
