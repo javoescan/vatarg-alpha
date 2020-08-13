@@ -46,7 +46,8 @@
 $bairesAirports = ["SAEZ", "SABE", "SADF", "SADP", "SADM"];
 $aeroparqueDepartures = ["LANDA3B", "BIVAM3B", "ATOVO3B", "EZE8.GBE", "EZE8.TORUL", "EZE8.ASADA",
 "EZE8.URINO", "PAL8.NEPIS", "PAL8.TORUL", "PAL8.GBE", "KUKEN7", "SURBO7", "DORVO7", "PTA7.KOVUK", "PTA7.TEDAR", "PTA7.GBE"];
-$ezeizaDepartures = ["LANDA2A", "BIVAM2A", "ATOVO2A", "PTA6A", "PTA6B", "GBE6", "TORUL1"];
+$ezeizaDepartures = ["LANDA2A", "BIVAM2A", "ATOVO2A", "PTA6B.DORVO", "PTA6B.ESLAN", "PTA6B.KOVUK", "PTA6B.TEDAR", 
+"PTA6A.DORVO", "PTA6A.ESLAN", "PTA6A.KOVUK", "PTA6A.TEDAR","GBE6", "TORUL1"];
 
 $jsonSrc = file_get_contents("http://cluster.data.vatsim.net/vatsim-data.json");
 $json = json_decode($jsonSrc, true);
@@ -250,7 +251,8 @@ function getPalomarDeparture($flight) {
 		strpos($flight["planned_route"], "BIVAM") !== FALSE ||
 		strpos($flight["planned_route"], "KUKEN") !== FALSE ||
 		strpos($flight["planned_route"], "PAPIX") !== FALSE ||
-		strpos($flight["planned_route"], "DORVO") !== FALSE
+		strpos($flight["planned_route"], "DORVO") !== FALSE ||
+		strpos($flight["planned_route"], "GBE") !== FALSE
 	) {
 		return "H080";
 	}
@@ -261,7 +263,7 @@ function getSID($route, $departures) {
 	$sid = "";
 	foreach ($departures as $departure) {
 		$matchesSid = strpos($route, substr($departure, 0, 3)) !== FALSE;
-		$matchesTransition = !$matchesSid && strpos($route, substr($departure, strpos($departure, "."), 3)) !== FALSE;
+		$matchesTransition = !$matchesSid && strpos($route, substr($departure, strpos($departure, ".") + 1, 3)) !== FALSE;
 		if ($matchesSid || $matchesTransition) {
 			$sid = $departure;
 			break;
