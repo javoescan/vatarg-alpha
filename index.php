@@ -44,6 +44,9 @@
 // [qnh_mb] => 1013
 
 $bairesAirports = ["SAEZ", "SABE", "SADF", "SADP", "SADM"];
+$aeroparqueDepartures = ["LANDA3B", "BIVAM3B", "ATOVO3B", "EZE8.GBE", "EZE8.TORUL", "EZE8.ASADA",
+"EZE8.URINO", "PAL8.NEPIS", "PAL8.TORUL", "PAL8.GBE", "KUKEN7", "SURBO7", "DORVO7", "PTA7.KOVUK", "PTA7.TEDAR", "PTA7.GBE"];
+$ezeizaDepartures = ["LANDA2A", "BIVAM2A", "ATOVO2A", "PTA6A", "PTA6B", "GBE6", "TORUL1"];
 
 $jsonSrc = file_get_contents("http://cluster.data.vatsim.net/vatsim-data.json");
 $json = json_decode($jsonSrc, true);
@@ -64,6 +67,9 @@ $bairesDepartures = array_filter($argFlights, function($flight) use ($bairesAirp
 });
 
 $storeData = [];
+
+$localFile = file_get_contents("data.txt");
+$storedData = json_decode($localFile, true);
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +86,7 @@ $storeData = [];
 	</head>
 	<body>
 		<h2 class="text-center title">VATSIM Argentina Alpha System</h2>
-  		<input class="form-control text-center" id="search-input" type="text" placeholder="Filtrar">
+  		<input class="form-control text-center" id="search-input" type="text" placeholder="Filtrar" />
 		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
@@ -98,16 +104,18 @@ $storeData = [];
 				<?php
 					foreach ($bairesDepartures as $flight) {
 						$transponder = getTransponder($flight);
-						$storeData[$flight["callsign"]] = [
-							"transponder" => $transponder,
-						];
+						if (!isset($storeData[$flight["callsign"]])) {
+							$storeData[$flight["callsign"]] = [
+								"transponder" => $transponder,
+							];
+						}
 						echo "<tr class='clickable-row'>";
 						echo "<td>" . $flight["callsign"] . "</td>";
-						echo "<td>" . $flight["planned_deptime"] . "z</td>";
+						echo "<td>" . formatDepartureTime($flight["planned_deptime"]) . "z</td>";
 						echo "<td>" . $flight["planned_depairport"] . "</td>";
 						echo "<td>" . $flight["planned_destairport"] . "</td>";
 						echo "<td>" . formatFlightLevel($flight["planned_altitude"]) . "</td>";
-						echo "<td>" . getSID($flight["planned_route"]) . "</td>";
+						echo "<td>" . getDeparture($flight) . "</td>";
 						echo "<td>" . getInitialClimb($flight) . "</td>";
 						echo "<td>" . $transponder . "</td>";
 						echo "</tr>";
@@ -119,6 +127,7 @@ $storeData = [];
 			$(document).ready(function(){
 				$("#search-input").on("keyup", function() {
 					var value = $(this).val().toLowerCase();
+					localStorage.setItem('filter', value);
 					$("#flights tr").filter(function() {
 						$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 					});
@@ -126,6 +135,8 @@ $storeData = [];
 				$('#flights').on('click', '.clickable-row', function(event) {
 					$(this).addClass('active').siblings().removeClass('active');
 				});
+				document.getElementById("search-input").value = localStorage.getItem('filter') || '';
+				$("#search-input").keyup();
 			});
 		</script>
 	</body>
@@ -133,8 +144,12 @@ $storeData = [];
 
 <?php // HELPERS
 function getTransponder($flight) {
-	$departure = getPrefixAirport($flight["planned_depairport"]);
-	if ($departure === "SA") {
+	global $storedData;
+	if (is_array($storedData) && isset($storedData[$flight["callsign"]])) {
+		return $storedData[$flight["callsign"]]["transponder"];
+	}
+	$arrival = getPrefixAirport($flight["planned_destairport"]);
+	if ($arrival === "SA") {
 		return getNationalTransponder($flight);
 	} else {
 		return getInternationalTransponder($flight);
@@ -142,16 +157,32 @@ function getTransponder($flight) {
 }
 
 function getNationalTransponder($flight) {
+	global $storedData;
 	do {
 		$transponder = rand(1500, 1777);
-	} while (strpos($transponder, "8") !== FALSE || strpos($transponder, "9") !== FALSE || strlen($transponder) !== 4);
+	} while (
+		strpos($transponder, "8") !== FALSE ||
+		strpos($transponder, "9") !== FALSE ||
+		strlen($transponder) !== 4 ||
+		is_array($storedData) && array_filter($storedData, function($flight){
+			return ($flight["transponder"] == $transponder);
+		})
+	);
 	return $transponder;
 }
 
 function getInternationalTransponder($flight) {
+	global $storedData;
 	do {
 		$transponder = rand(300, 577);
-	} while (strpos($transponder, "8") !== FALSE || strpos($transponder, "9") !== FALSE || strlen($transponder) !== 3);
+	} while (
+		strpos($transponder, "8") !== FALSE ||
+		strpos($transponder, "9") !== FALSE ||
+		strlen($transponder) !== 3 ||
+		is_array($storedData) && array_filter($storedData, function($flight){
+			return ($flight["transponder"] == $transponder);
+		})
+	);
 	return "0" . $transponder;
 }
 
@@ -171,9 +202,42 @@ function formatFlightLevel($flightLevel) {
     return $flightLevel;
 }
 
-function getSID($route) {
-	$arr = explode(' ',trim($route));
-	return $arr[0];
+function formatDepartureTime($time) {
+	switch(strlen($time)) {
+		case 3:
+			return "0" . $time;
+		case 2:
+			return "00" . $time;
+		default:
+			return $time;
+	}
+}
+
+function getDeparture($flight) {
+	global $aeroparqueDepartures;
+	global $ezeizaDepartures;
+	switch($flight["planned_depairport"]) {
+		case "SABE":
+			return getSID($flight["planned_route"], $aeroparqueDepartures);
+		case "SAEZ":
+			return getSID($flight["planned_route"], $ezeizaDepartures);
+		case "SADP":
+			return "R280";
+		case "SADF":
+			return "RWY HDG";
+		case "SADM":
+			return "RWY HDG";
+		default:
+			return formatFlightLevel($flight["planned_altitude"]);
+	}
+}
+
+function getSID($route, $departures) {
+	foreach ($departures as $departure) {
+		if (strpos($route, substr($departure, 0, 3)) !== FALSE) {
+			return $departure;
+		}
+	}
 }
 
 function getPrefixAirport($airport) {
@@ -188,6 +252,10 @@ function getInitialClimb($flight) {
 			return "F050";
 		case "SADP":
 			return "A030";
+		case "SADF":
+			return "A015";
+		case "SADM":
+			return "A020";
 		default:
 			return formatFlightLevel($flight["planned_altitude"]);
 	}
