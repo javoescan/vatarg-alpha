@@ -47,7 +47,7 @@ $bairesAirports = ["SAEZ", "SABE", "SADF", "SADP", "SADM"];
 $aeroparqueDepartures = ["LANDA3B", "BIVAM3B", "ATOVO3B", "DORVO7", "PTA7.GBE", "PTA7.KOVUK", "PTA7.TEDAR",
 "EZE8.URINO", "EZE8.GBE", "EZE8.TORUL", "EZE8.ASADA", "PAL8.NEPIS", "PAL8.TORUL", "PAL8.GBE", "KUKEN7", "SURBO7"];
 $ezeizaDepartures = ["LANDA2A", "BIVAM2A", "ATOVO2A", "PTA6B.DORVO", "PTA6B.ESLAN", "PTA6B.KOVUK", "PTA6B.TEDAR", 
-"PTA6A.DORVO", "PTA6A.ESLAN", "PTA6A.KOVUK", "PTA6A.TEDAR","GBE6", "TORUL1"];
+"PTA6A.DORVO", "PTA6A.ESLAN", "PTA6A.KOVUK", "PTA6A.TEDAR","GBE6", "TORUL1.TORUL", "TORUL1.URINO", "TORUL1.ASADA"];
 
 $jsonSrc = file_get_contents("http://cluster.data.vatsim.net/vatsim-data.json");
 $json = json_decode($jsonSrc, true);
