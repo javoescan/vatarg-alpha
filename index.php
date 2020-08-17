@@ -69,6 +69,10 @@ $bairesDepartures = array_filter($argFlights, function($flight) use ($bairesAirp
 	return in_array($departure, $bairesAirports) && $isOnTheGround && $flight["groundspeed"] < 40;
 });
 
+usort($bairesDepartures, function($a, $b) {
+    return strcmp($a["planned_deptime"], $b["planned_deptime"]);
+});
+
 $storeData = [];
 
 $localFile = file_get_contents("data.txt");
@@ -98,7 +102,7 @@ $storedData = json_decode($localFile, true);
 					<th scope="col">Departure</th>
 					<th scope="col">Arrival</th>
 					<th scope="col">Altitude</th>
-					<th scope="col">SID</th>
+					<th scope="col">Departure</th>
 					<th scope="col">Initial Climb</th>
 					<th scope="col">Transponder</th>
 				</tr>
