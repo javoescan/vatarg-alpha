@@ -52,6 +52,8 @@ $ezeizaDepartures = ["LANDA2A", "BIVAM2A", "ATOVO2A", "PTA6B.DORVO", "PTA6B.ESLA
 $jsonSrc = file_get_contents("http://cluster.data.vatsim.net/vatsim-data.json");
 $json = json_decode($jsonSrc, true);
 
+$airportsData = json_decode(file_get_contents("./data/airports.json"), true);
+
 $flights = array_filter($json["clients"], function($connection) {
 	return $connection["clienttype"] === "PILOT";
 });
@@ -61,15 +63,24 @@ $argFlights = array_filter($flights, function($flight) {
     return $departure === "SA";
 });
 
-$bairesDepartures = array_filter($argFlights, function($flight) use ($bairesAirports) {
+$departures = array_filter($argFlights, function($flight) use ($airportsData) {
 	$departure = $flight["planned_depairport"];
+	if (!array_key_exists($departure, $airportsData)) {
+		return false;
+	}
+	$airport = $airportsData[$departure];
 	$latitude = round($flight["latitude"], 0);
 	$longitude = round($flight["longitude"], 0);
-	$isOnTheGround = $latitude > -36 && $latitude < -32 && $longitude > -60 && $longitude < -56;
-	return in_array($departure, $bairesAirports) && $isOnTheGround && $flight["groundspeed"] < 40;
+	$isOnTheGround =
+		$latitude >= $airport['latitude'] - 1 &&
+		$latitude <= $airport['latitude'] + 1 &&
+		$longitude >= $airport['longitude'] - 1 &&
+		$longitude <= $airport['longitude'] + 1 &&
+		$flight["groundspeed"] < 40;
+	return $isOnTheGround;
 });
 
-usort($bairesDepartures, function($a, $b) {
+usort($departures, function($a, $b) {
     return strcmp($a["planned_deptime"], $b["planned_deptime"]);
 });
 
@@ -92,7 +103,7 @@ $storedData = json_decode($localFile, true);
 		<script src="./js/bootstrap.min.js"></script>
 	</head>
 	<body>
-		<h2 class="text-center title">VATSIM Argentina Alpha System</h2>
+		<h2 class="text-center title">VATSIM Argentina Alpha System 1.1</h2>
   		<input class="form-control text-center" id="search-input" type="text" placeholder="Filtrar" />
 		<table class="table table-striped">
 			<thead class="thead-dark">
@@ -109,7 +120,7 @@ $storedData = json_decode($localFile, true);
 			</thead>
 			<tbody id="flights">
 				<?php
-					foreach ($bairesDepartures as $flight) {
+					foreach ($departures as $flight) {
 						$departureTime = formatDepartureTime($flight["planned_deptime"]);
 						$transponder = getTransponder($flight);
 						$flightLevel = formatFlightLevel($flight["planned_altitude"]);
@@ -230,13 +241,7 @@ function formatDepartureTime($time) {
 }
 
 function getDeparture($flight) {
-	global $aeroparqueDepartures;
-	global $ezeizaDepartures;
 	switch($flight["planned_depairport"]) {
-		case "SABE":
-			return getSID($flight["planned_route"], $aeroparqueDepartures);
-		case "SAEZ":
-			return getSID($flight["planned_route"], $ezeizaDepartures);
 		case "SADP":
 			return getPalomarDeparture($flight);
 		case "SADF":
@@ -244,7 +249,7 @@ function getDeparture($flight) {
 		case "SADM":
 			return "RWY HDG";
 		default:
-			return formatFlightLevel($flight["planned_altitude"]);
+			return getSID($flight["planned_depairport"], $flight["planned_route"]);
 	}
 }
 
@@ -263,8 +268,13 @@ function getPalomarDeparture($flight) {
 	return "R280";
 }
 
-function getSID($route, $departures) {
+function getSID($departure, $route) {
+	global $airportsData;
 	$sid = "";
+	$airport = $airportsData[$departure];
+	if (array_values($airport["departures"])[0] !== null) {
+		$departures = array_values($airport["departures"])[0];
+	}
 	foreach ($departures as $departure) {
 		$matchesSid = strpos($route, substr($departure, 0, 3)) !== FALSE;
 		$matchesTransition = !$matchesSid && strpos($route, substr($departure, strpos($departure, ".") + 1, 3)) !== FALSE;
@@ -276,6 +286,9 @@ function getSID($route, $departures) {
 	if (strpos($sid, "EZE8") !== FALSE) {
 		return str_replace("EZE8", "PAL8", $sid);
 	}
+	if ($sid === "") {
+		$sid = "BY ATC";
+	}
 	return $sid;
 }
 
@@ -284,20 +297,9 @@ function getPrefixAirport($airport) {
 }
 
 function getInitialClimb($flight) {
-	switch($flight["planned_depairport"]) {
-		case "SABE":
-			return "F060";
-		case "SAEZ":
-			return "F050";
-		case "SADP":
-			return "A030";
-		case "SADF":
-			return "A015";
-		case "SADM":
-			return "A020";
-		default:
-			return formatFlightLevel($flight["planned_altitude"]);
-	}
+	global $airportsData;
+	$airport = $airportsData[$flight["planned_depairport"]];
+	return $airport["initClimb"] !== null ? $airport["initClimb"] : "BY ATC";
 }
 
 $encodedString = json_encode($storeData);
