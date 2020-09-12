@@ -218,7 +218,7 @@ function formatFlightLevel($flightLevel) {
 		return "F" . substr($flightLevel, 2, 3);
 	} else if (strpos($flightLevel, "F") === FALSE) {
 		if (strlen($flightLevel) === 4) {
-			if ((int)$flightLevel < 3000) {
+			if ((int)$flightLevel <= 3000) {
 				return "A0" . substr($flightLevel, 0, 2);
 			}
 			return "F0" . substr($flightLevel, 0, 2);
@@ -275,12 +275,18 @@ function getSID($departure, $route) {
 	if (array_values($airport["departures"])[0] !== null) {
 		$departures = array_values($airport["departures"])[0];
 	}
-	foreach ($departures as $departure) {
-		$matchesSid = strpos($route, substr($departure, 0, 3)) !== FALSE;
-		$matchesTransition = !$matchesSid && strpos($route, substr($departure, strpos($departure, ".") + 1, 3)) !== FALSE;
-		if ($matchesSid || $matchesTransition) {
-			$sid = $departure;
-			break;
+	$arr = explode(' ', trim($route));
+	$plannedDeparture = $arr[0]; 
+	if (in_array($plannedDeparture, $departures)) {
+		$sid = $plannedDeparture;
+	} else {
+		foreach ($departures as $departure) {
+			$matchesSid = strpos($route, substr($departure, 0, 3)) !== FALSE;
+			$matchesTransition = !$matchesSid && strpos($route, substr($departure, strpos($departure, ".") + 1, 3)) !== FALSE;
+			if ($matchesSid || $matchesTransition) {
+				$sid = $departure;
+				break;
+			}
 		}
 	}
 	if (strpos($sid, "EZE8") !== FALSE) {
