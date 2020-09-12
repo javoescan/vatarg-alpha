@@ -163,7 +163,7 @@ $storedData = json_decode($localFile, true);
 				$("#search-input").keyup();
 				setInterval(() => {
 					location.reload();
-				}, 60000);
+				}, 120000);
 			});
 		</script>
 	</body>
