@@ -87,13 +87,13 @@
 		"latitude": "-32",
 		"longitude": "-60",
 		"departures": {
-			"02": [
-				"DABOT1C", "GEDUK1C", "MUPIS1C", "TINTA1C",
-				"TOLUK1C", "VASAL1C", "VUKSO1C", "VUMKI1C"
-			],
 			"20": [
 				"DABOT1G", "GEDUK1G", "MUPIS1G", "TINTA1G",
 				"TOLUK1G", "VASAL1G", "VUKSO1G", "VUMKI1G"
+			],
+			"02": [
+				"DABOT1C", "GEDUK1C", "MUPIS1C", "TINTA1C",
+				"TOLUK1C", "VASAL1C", "VUKSO1C", "VUMKI1C"
 			]
 		},
 		"initClimb": null,
@@ -129,17 +129,17 @@
 		"latitude": "-41",
 		"longitude": "-71",
 		"departures": {
-			"11": [
-				"ALGIL1E", "ATAKO1E", "ATIRA1E", "CHATO1E", "LIMAY1G",
-				"ORERA1E", "PUNOL1E", "TONAR1E", "TORES1E",
-				"ALGIL1G", "ATAKO1G", "ATIRA1G", "CHATO1G", "LIMAY1G",
-				"ORERA1G", "PUNOL1G", "TONAR1G", "TORES1G"
-			],
 			"29": [
 				"ALGIL1A", "ATAKO1A", "ATIRA1A", "CHATO1A", "LIMAY1A",
 				"ORERA1A", "PUNOL1A", "TONAR1A", "TORES1A",
 				"ALGIL1C", "ATAKO1C", "ATIRA1C", "CHATO1C", "LIMAY1C",
 				"ORERA1C", "PUNOL1C", "TONAR1C", "TORES1C"
+			],
+			"11": [
+				"ALGIL1E", "ATAKO1E", "ATIRA1E", "CHATO1E", "LIMAY1G",
+				"ORERA1E", "PUNOL1E", "TONAR1E", "TORES1E",
+				"ALGIL1G", "ATAKO1G", "ATIRA1G", "CHATO1G", "LIMAY1G",
+				"ORERA1G", "PUNOL1G", "TONAR1G", "TORES1G"
 			]
 		},
 		"initClimb": null,
@@ -164,6 +164,12 @@
 		"latitude": "-38",
 		"longitude": "-62",
 		"departures": {
+			"35R": [
+				"DOTRI1E", "MOXAN1E", "PULAS1E", "AKNOS1E",
+				"DAMIN1E","GENAX1E", "KIMID1E", "SANBU1E",
+				"DOTRI1G", "MOXAN1G", "PULAS1G", "AKNOS1G",
+				"DAMIN1G","GENAX1G", "KIMID1G", "SANBU1G"
+			],
 			"17L": [
 				"DOTRI1A", "MOXAN1A", "PULAS1A", "AKNOS1A",
 				"DAMIN1A","GENAX1A", "KIMID1A", "SANBU1A",
@@ -172,12 +178,6 @@
 			],
 			"17R": null,
 			"35L": null,
-			"35R": [
-				"DOTRI1E", "MOXAN1E", "PULAS1E", "AKNOS1E",
-				"DAMIN1E","GENAX1E", "KIMID1E", "SANBU1E",
-				"DOTRI1G", "MOXAN1G", "PULAS1G", "AKNOS1G",
-				"DAMIN1G","GENAX1G", "KIMID1G", "SANBU1G"
-			],
 			"06": [
 				"DOTRI1K", "MOXAN1K", "PULAS1K", "AKNOS1K",
 				"DAMIN1K","GENAX1K", "KIMID1K", "SANBU1K"
