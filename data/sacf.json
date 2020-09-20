@@ -1,0 +1,131 @@
+{
+	"SANC": {
+		"latitude": "-28",
+		"longitude": "-65",
+		"departures": {
+			"02": [
+				"LITOR1A", "KAKAN1A", "SORTI1A",
+				"LITOR1C", "KAKAN1C", "SORTI1C"
+			],
+			"20": [
+				"LITOR1E", "KAKAN1E", "SORTI1E",
+				"LITOR1G", "KAKAN1G", "SORTI1G"
+			]
+		},
+		"initClimb": null
+    },
+    "SACO": {
+		"latitude": "-31",
+		"longitude": "-64",
+		"departures": {
+			"19": [
+        "ASEMI1.UTRAX", "ASEMI1.SIMES", "GENAS1",
+        "IRAVO1.GEMOP", "IRAVO1.TREJO", "IRAVO1.LOGET", "IRAVO1.DONKA",
+        "IRAVO1.SIBOL", "IRAVO1.ETEPO", "IRAVO1.PAMAK", "IRAVO1.ALDEX"
+			],
+			"01": [
+        "ASEMI1.UTRAX", "ASEMI1.SIMES", "GENAS1",
+        "IRAVO1.GEMOP", "IRAVO1.TREJO", "IRAVO1.LOGET", "IRAVO1.DONKA",
+        "IRAVO1.SIBOL", "IRAVO1.ETEPO", "IRAVO1.PAMAK", "IRAVO1.ALDEX"
+			],
+			"23": null,
+			"05": null
+		},
+		"initClimb": null
+	},
+    "SANL": {
+		"latitude": "-29",
+		"longitude": "-66",
+		"departures": {
+			"21": null,
+			"03": null
+		},
+		"initClimb": null
+	},
+    "SAOC": {
+		"latitude": "-33",
+		"longitude": "-64",
+		"departures": {
+			"23": null,
+			"05": null
+		},
+		"initClimb": null
+	},
+    "SASA": {
+		"latitude": "-24",
+		"longitude": "-65",
+		"departures": {
+			"02": [
+        "PONPI2A", "KIBOS2A", "LIVUL1", "USIXU1"
+      ],
+			"06": [
+        "PONPI2A", "KIBOS2A"
+      ],
+			"20": [
+        "PONPI2A", "KIBOS2A", "MUBOK1", "ANKAB1"
+      ],
+			"24": [
+        "KEVAS2A", "PONPI1"
+      ]
+		},
+		"initClimb": null
+	},
+    "SANT": {
+		"latitude": "-26",
+		"longitude": "-65",
+		"departures": {
+			"02": [
+        "ALGAR1A", "ILPAR3A", "ANGEN3A", "BITIS3A",
+        "IMBOL3A", "PUBER3A", "SORTI3A"
+      ],
+			"20": [
+        "BITIS2E", "IMBOL2E", "PUBER2E", "SORTI2E",
+        "ILPAR2E", "KONRI2E"
+      ]
+		},
+		"initClimb": null
+	},
+    "SASJ": {
+		"latitude": "-24",
+		"longitude": "-65",
+		"departures": {
+			"34": [
+        "SAL1A", "PONPI1A", "ASODO1A", "TEGAV1A",
+        "KOVAT1A", "MOXAT1A", "JUJ1A",
+        "ALGAL1C", "SA6881C", "PONPI1C", "ASODO1C",
+        "TEGAV1C", "KOVAT1C", "MOXAT1C"
+      ],
+			"16": [
+        "SAL1E", "PONPI1E", "ASODO1E", "TEGAV1E",
+        "KOVAT1E", "MOXAT1E",
+        "ALGAL1G", "SA6881G", "PONPI1G", "ASODO1G",
+        "TEGAV1G", "KOVAT1G", "MOXAT1G"
+      ]
+		},
+		"initClimb": null
+	},
+    "SANR": {
+		"latitude": "-27",
+		"longitude": "-64",
+		"departures": {
+			"01": null,
+			"16": null
+		},
+		"initClimb": null
+	},
+    "SANE": {
+		"latitude": "-27",
+		"longitude": "-64",
+		"departures": {
+			"21": [
+        "ANGEN1C", "KOGSA1C", "PUBER1C",
+        "VUPRO1C", "VUROM1C"
+      ],
+			"03": [
+        "ANGEN1G", "KOGSA1G", "PUBER1G",
+        "VUPRO1G", "VUROM1G"
+      ]
+		},
+		"initClimb": null
+	}
+}

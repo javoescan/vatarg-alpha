@@ -1,0 +1,182 @@
+{
+  "SAEZ": {
+    "latitude": "-34",
+    "longitude": "-58",
+    "departures": {
+      "11": [
+        "ATOVO2A", "BIVAM2A", "LANDA2A", "GBE6",
+        "PTA6B.DORVO", "PTA6B.ESLAN", "PTA6B.KOVUK", "PTA6B.TEDAR",
+        "TORUL1.TORUL", "TORUL1.URINO", "TORUL1.ASADA"
+      ],
+      "29": [
+        "ATOVO2A", "BIVAM2A", "LANDA2A", "GBE6",
+        "PTA6A.DORVO", "PTA6A.ESLAN", "PTA6A.KOVUK", "PTA6A.TEDAR",
+        "TORUL1.TORUL", "TORUL1.URINO", "TORUL1.ASADA"
+      ],
+      "17": [
+        "ATOVO2A", "BIVAM2A", "LANDA2A", "GBE6",
+        "PTA6A.DORVO", "PTA6A.ESLAN", "PTA6A.KOVUK", "PTA6A.TEDAR",
+        "TORUL1.TORUL", "TORUL1.URINO", "TORUL1.ASADA"
+      ],
+      "35": [
+        "ATOVO2A", "BIVAM2A", "LANDA2A", "GBE6",
+        "PTA6A.DORVO", "PTA6A.ESLAN", "PTA6A.KOVUK", "PTA6A.TEDAR",
+        "TORUL1.TORUL", "TORUL1.URINO", "TORUL1.ASADA"
+      ]
+    },
+    "initClimb": "F050"
+  },
+  "SABE": {
+    "latitude": "-34",
+    "longitude": "-58",
+    "departures": {
+      "13": [
+        "ATOVO3B", "BIVAM3B", "LANDA3B", "DORVO7",
+        "PTA7.GBE", "PTA7.KOVUK", "PTA7.TEDAR",
+        "EZE8.URINO", "EZE8.GBE", "EZE8.TORUL", "EZE8.ASADA",
+        "PAL8.NEPIS", "PAL8.TORUL", "PAL8.GBE", "KUKEN7", "SURBO7"
+      ],
+      "31": [
+        "ATOVO3B", "BIVAM3B", "LANDA3B", "DORVO7",
+        "PTA7.GBE", "PTA7.KOVUK", "PTA7.TEDAR",
+        "EZE8.URINO", "EZE8.GBE", "EZE8.TORUL", "EZE8.ASADA",
+        "PAL8.NEPIS", "PAL8.TORUL", "PAL8.GBE", "KUKEN7", "SURBO7"
+      ]
+    },
+    "initClimb": "F060"
+  },
+  "SADP": {
+    "latitude": "-34",
+    "longitude": "-58",
+    "departures": {
+      "17": {
+        "NE": "H080",
+        "SW": "R280"
+      },
+      "35": {
+        "NE": "H080",
+        "SW": "R280"
+      }
+    },
+    "initClimb": "A030"
+  },
+  "SADF": {
+    "latitude": "-34",
+    "longitude": "-58",
+    "departures": {
+      "05": "RWY HDG",
+      "23": "RWY HDG"
+    },
+    "initClimb": "A015"
+  },
+  "SADM": {
+    "latitude": "-34",
+    "longitude": "-58",
+    "departures": {
+      "02": "RWY HDG",
+      "20": "RWY HDG"
+    },
+    "initClimb": "A020"
+  },
+  "SAAR": {
+    "latitude": "-32",
+    "longitude": "-60",
+    "departures": {
+      "20": [
+        "DABOT1G", "GEDUK1G", "MUPIS1G", "TINTA1G",
+        "TOLUK1G", "VASAL1G", "VUKSO1G", "VUMKI1G"
+      ],
+      "02": [
+        "DABOT1C", "GEDUK1C", "MUPIS1C", "TINTA1C",
+        "TOLUK1C", "VASAL1C", "VUKSO1C", "VUMKI1C"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAZR": {
+    "latitude": "-36",
+    "longitude": "-64",
+    "departures": {
+      "01": [
+        "AKPUR1C", "OGLER1C", "TIMKU1C", "XIXOS1C"
+      ],
+      "19": [
+        "AKPUR1G", "OGLER1G", "TIMKU1G", "XIXOS1G"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAZN": {
+    "latitude": "-38",
+    "longitude": "-68",
+    "departures": {
+      "09": null,
+      "27": [
+        "ILTOS2C", "KOTOG2C", "NIDBA2C", "ROPON2C"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAZS": {
+    "latitude": "-41",
+    "longitude": "-71",
+    "departures": {
+      "29": [
+        "ALGIL1A", "ATAKO1A", "ATIRA1A", "CHATO1A", "LIMAY1A",
+        "ORERA1A", "PUNOL1A", "TONAR1A", "TORES1A",
+        "ALGIL1C", "ATAKO1C", "ATIRA1C", "CHATO1C", "LIMAY1C",
+        "ORERA1C", "PUNOL1C", "TONAR1C", "TORES1C"
+      ],
+      "11": [
+        "ALGIL1E", "ATAKO1E", "ATIRA1E", "CHATO1E", "LIMAY1G",
+        "ORERA1E", "PUNOL1E", "TONAR1E", "TORES1E",
+        "ALGIL1G", "ATAKO1G", "ATIRA1G", "CHATO1G", "LIMAY1G",
+        "ORERA1G", "PUNOL1G", "TONAR1G", "TORES1G"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAZM": {
+    "latitude": "-37",
+    "longitude": "-57",
+    "departures": {
+      "13": [
+        "PULPA1C", "PULPA1D", "ROPIS1C", "ROPIS1D",
+        "ESURO1C", "ROGAS1C", "SIRAN1C"
+      ],
+      "31": [
+        "PULPA1G", "ROPIS1G", "ESURO1G", "ROGAS1G", "SIRAN1G"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAZB": {
+    "latitude": "-38",
+    "longitude": "-62",
+    "departures": {
+      "35R": [
+        "DOTRI1E", "MOXAN1E", "PULAS1E", "AKNOS1E",
+        "DAMIN1E","GENAX1E", "KIMID1E", "SANBU1E",
+        "DOTRI1G", "MOXAN1G", "PULAS1G", "AKNOS1G",
+        "DAMIN1G","GENAX1G", "KIMID1G", "SANBU1G"
+      ],
+      "17L": [
+        "DOTRI1A", "MOXAN1A", "PULAS1A", "AKNOS1A",
+        "DAMIN1A","GENAX1A", "KIMID1A", "SANBU1A",
+        "DOTRI1C", "MOXAN1C", "PULAS1C", "AKNOS1C",
+        "DAMIN1C","GENAX1C", "KIMID1C", "SANBU1C"
+      ],
+      "17R": null,
+      "35L": null,
+      "06": [
+        "DOTRI1K", "MOXAN1K", "PULAS1K", "AKNOS1K",
+        "DAMIN1K","GENAX1K", "KIMID1K", "SANBU1K"
+      ],
+      "24": [
+        "DOTRI1M", "MOXAN1M", "PULAS1M", "AKNOS1M",
+        "DAMIN1M","GENAX1M", "KIMID1M", "SANBU1N"
+      ]
+    },
+    "initClimb": null
+  }
+}
