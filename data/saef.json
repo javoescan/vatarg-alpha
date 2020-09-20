@@ -98,6 +98,15 @@
     },
     "initClimb": null
   },
+  "SAAP": {
+    "latitude": "-31",
+    "longitude": "-60",
+    "departures": {
+      "02": null,
+      "20": null
+    },
+    "initClimb": "A020"
+  },
   "SAZR": {
     "latitude": "-36",
     "longitude": "-64",
@@ -138,6 +147,15 @@
         "ALGIL1G", "ATAKO1G", "ATIRA1G", "CHATO1G", "LIMAY1G",
         "ORERA1G", "PUNOL1G", "TONAR1G", "TORES1G"
       ]
+    },
+    "initClimb": null
+  },
+  "SAZY": {
+    "latitude": "-40",
+    "longitude": "-71",
+    "departures": {
+      "24": null,
+      "06": null
     },
     "initClimb": null
   },

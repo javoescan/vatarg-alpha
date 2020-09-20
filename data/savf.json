@@ -1,7 +1,135 @@
 {
-    "transponders": {
-      "nat": [ 2140, 2177 ],
-      "int": [ 700, 777 ],
-      "vfr": [ 70, 77 ]
-    }
+  "transponders": {
+    "nat": [ 2140, 2177 ],
+    "int": [ 700, 777 ],
+    "vfr": [ 70, 77 ]
+  },
+  "SAVC": {
+    "latitude": "-45",
+    "longitude": "-67",
+    "departures": {
+      "25": [
+        "BODUN1G", "ETASO1G", "IRAXO1G", "EGEGU1G", 
+        "GATUD1G", "PUBLO1G", "VUKNA1G"
+      ],
+      "07": [
+        "BODUN1C", "ETASO1C", "IRAXO1C", "EGEGU1C", 
+        "GATUD1C", "PUBLO1C", "VUKNA1C"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAWC": {
+    "latitude": "-50",
+    "longitude": "-72",
+    "departures": {
+      "25": [
+        "BOKUK1C", "KADIV1C", "DEVIS1D", "MANTI1C", 
+        "UGADA1C", "DEVIS1C", "KIBAR1C", "MUNER1C", "SULSU1C"
+      ],
+      "07": [
+        "BOKUK2G", "KADIV1G", "MANTI2G", 
+        "UGADA1G", "DEVIS1G", "KIBAR1G", "MUNER1G", "SULSU1G"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAVE": {
+    "latitude": "-42",
+    "longitude": "-71",
+    "departures": {
+      "23": null,
+      "05": null
+    },
+    "initClimb": null
+  },
+  "SAWB": {
+    "latitude": "-64",
+    "longitude": "-56",
+    "departures": {
+      "23": null,
+      "05": null
+    },
+    "initClimb": null
+  },
+  "SAVY": {
+    "latitude": "-42",
+    "longitude": "-65",
+    "departures": {
+      "24": [
+        "EKATO2G", "GATUD2G", "LOMUS1G", "OPSIR1G", 
+        "ORAMU2G", "SILAN2G"
+      ],
+      "06": [
+        "EKATO2M", "GATUD2M", "LOMUS1M", "OPSIR1M", 
+        "ORAMU2M", "SILAN2M"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAWE": {
+    "latitude": "-53",
+    "longitude": "-67",
+    "departures": {
+      "08": [
+        "GEDAB"
+      ],
+      "26": [
+        "GEDAB"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAWG": {
+    "latitude": "-51",
+    "longitude": "-69",
+    "departures": {
+      "25": [
+        "DEVIS1G", "KADEB1G", "IRAVU1G", "MUBES1G" 
+      ],
+      "07": [
+        "DEVIS1C", "KADEB1C", "IRAVU1C", "MUBES1C"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAWH": {
+    "latitude": "-54",
+    "longitude": "-68",
+    "departures": {
+      "25": [
+        "USH2B", "WIL3"
+      ],
+      "07": [
+        "USH2A"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAVV": {
+    "latitude": "-40",
+    "longitude": "-62",
+    "departures": {
+      "11": [
+        "USESA1C", "KIGIR1C", "LOMUS1C", "SILUS1C"
+      ],
+      "29": [
+        "USESA1G", "KIGIR1G", "LOMUS1G", "SILUS1G"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAVT": {
+    "latitude": "-43",
+    "longitude": "-65",
+    "departures": {
+      "25": [
+        "EKATO2C", "GATUD2C", "OPSIR1C", "SILAN2C", "ORAMU2C", "LOMUS1C"
+      ],
+      "07": [
+        "EKATO2K", "GATUD2K", "OPSIR1K", "SILAN2K", "ORAMU2K", "LOMUS1K"
+      ]
+    },
+    "initClimb": null
   }
+}

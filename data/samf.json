@@ -3,5 +3,85 @@
     "nat": [ 2050, 2077 ],
     "int": [ 2700, 2777 ],
     "vfr": [ 40, 47 ]
+  },
+  "SAME": {
+    "latitude": "-32",
+    "longitude": "-68",
+    "departures": {
+      "18": [
+        "UMKAL1E", "UMKAL1A", "ESITO1E", "ESITO1A",
+        "DOSLO1E", "KAMUV1E", "MEBRA1E", "PAPIR1E", "SALBO1E",
+        "DOSLO1G", "KAMUV1G", "MEBRA1G", "PAPIR1G", "SALBO1G",
+        "UMKAL1G", "ESITO1G"
+      ],
+      "36": [
+        "UMKAL1E", "UMKAL1A", "ESITO1E", "ESITO1A",
+        "DOSLO1A", "KAMUV1A", "MEBRA1A", "PAPIR1A", "SALBO1A",
+        "DOSLO1C", "KAMUV1C", "MEBRA1C", "PAPIR1C", "SALBO1C",
+        "UMKAL1C", "ESITO1C"
+      ]
+    },
+    "initClimb": null
+  },
+  "SANU": {
+    "latitude": "-31",
+    "longitude": "-68",
+    "departures": {
+      "18": [
+        "DABUL2", "ESKOP1", "MEBRA1"
+      ],
+      "36": [
+        "BITAG2"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAOU": {
+    "latitude": "-33",
+    "longitude": "-66",
+    "departures": {
+      "19": [
+        "ISIPO1G", "MORRO1G", "FRAGA1G"
+      ],
+      "01": null
+    },
+    "initClimb": null
+  },
+  "SAMM": {
+    "latitude": "-35",
+    "longitude": "-69",
+    "departures": {
+      "14": null,
+      "32": null
+    },
+    "initClimb": null
+  },
+  "SAMR": {
+    "latitude": "-34",
+    "longitude": "-68",
+    "departures": {
+      "11": [
+        "OPRIL1A", "BOBAP1A", "SATRA1A",
+        "OPTUL1A", "ISEGA1A", "DIGER1A",
+        "OPRIL1C", "BOBAP1C", "SATRA1C",
+        "OPTUL1C", "ISEGA1C", "DIGER1C",
+        "OPTUL1G", "ISEGA1G", "DIGER1G"
+      ],
+      "32": [
+        "OPTUL1E", "ISEGA1E", "DIGER1E",
+        "OPRIL1E", "BOBAP1E", "SATRA1E",
+        "OPRIL1G", "BOBAP1G", "SATRA1G"
+      ]
+    },
+    "initClimb": null
+  },
+  "SAOR": {
+    "latitude": "-33",
+    "longitude": "-68",
+    "departures": {
+      "06": null,
+      "24": null
+    },
+    "initClimb": null
   }
 }
