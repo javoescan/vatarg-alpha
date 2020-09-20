@@ -25,6 +25,7 @@
         <button type="button" class="btn btn-light" id="sazm">SAZM</button>
         <button type="button" class="btn btn-light" id="sazn">SAZN</button>
         <button type="button" class="btn btn-light" id="sazs">SAZS</button>
+        <button type="button" class="btn btn-light" id="sazr">SAZR</button>
       </div>
       <div class="fir-container" id="sacf">
         <button type="button" class="btn btn-primary" id="fir-sacf">SACF</button>

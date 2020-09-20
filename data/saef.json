@@ -1,4 +1,9 @@
 {
+  "transponders": {
+    "nat": [ 1500, 1777 ],
+    "int": [ 300, 577 ],
+    "vfr": [ 30, 37 ]
+  },
   "SAEZ": {
     "latitude": "-34",
     "longitude": "-58",

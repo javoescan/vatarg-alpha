@@ -51,6 +51,7 @@ if (!isset($_GET["fir"]) || $_GET["fir"] === "") {
 }
 $fir = $_GET["fir"];
 $data = json_decode(file_get_contents("./data/" . $fir  . ".json"), true);
+$transponders = $data["transponders"];
 $fir = strtoupper($fir);
 
 if (isset($_GET["airport"]) && $_GET["airport"] !== "") {
@@ -187,42 +188,35 @@ function getTransponder($flight) {
 	if (is_array($storedData) && isset($storedData[$flight["callsign"]])) {
 		return $storedData[$flight["callsign"]]["transponder"];
 	}
-	$arrival = getPrefixAirport($flight["planned_destairport"]);
-	if ($arrival === "SA") {
-		return getNationalTransponder($flight);
+	return generateTransponder($flight);
+}
+
+function generateTransponder($flight) {
+	global $storedData;
+	global $transponders;
+	$transpondersRange = [];
+	if ($flight["planned_flighttype"] === "V") {
+		$transpondersRange = $transponders["vfr"];
+	} else if (getPrefixAirport($flight["planned_destairport"]) === "SA") {
+		$transpondersRange = $transponders["nat"];
 	} else {
-		return getInternationalTransponder($flight);
+		$transpondersRange = $transponders["INT"];
 	}
-}
-
-function getNationalTransponder($flight) {
-	global $storedData;
 	do {
-		$transponder = rand(1500, 1777);
+		$transponder = rand($transpondersRange[0], $transpondersRange[1]);
 	} while (
 		strpos($transponder, "8") !== FALSE ||
 		strpos($transponder, "9") !== FALSE ||
-		strlen($transponder) !== 4 ||
 		is_array($storedData) && array_filter($storedData, function($flight){
 			return ($flight["transponder"] == $transponder);
 		})
 	);
+	if (strlen($transponder) === 3) {
+		$transponder = "0" . $transponder;
+	} else if (strlen($transponder) === 3) {
+		$transponder = "00" . $transponder;
+	}
 	return $transponder;
-}
-
-function getInternationalTransponder($flight) {
-	global $storedData;
-	do {
-		$transponder = rand(300, 577);
-	} while (
-		strpos($transponder, "8") !== FALSE ||
-		strpos($transponder, "9") !== FALSE ||
-		strlen($transponder) !== 3 ||
-		is_array($storedData) && array_filter($storedData, function($flight){
-			return ($flight["transponder"] == $transponder);
-		})
-	);
-	return "0" . $transponder;
 }
 
 function formatFlightLevel($flightLevel) {
