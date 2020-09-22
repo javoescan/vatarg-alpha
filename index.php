@@ -78,9 +78,9 @@
   $("button").click(function() {
     if (this.id.includes("fir")) {
       var fir = this.id.replace("fir-", "");
-      window.location.href = "/flights.php?fir=" + fir;
+      window.location.href = "./flights.php?fir=" + fir;
     } else {
-      window.location.href = "/flights.php?fir=" + this.parentNode.id + "&airport=" + this.id;
+      window.location.href = "./flights.php?fir=" + this.parentNode.id + "&airport=" + this.id;
     }
   });
 </script>
