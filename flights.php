@@ -237,6 +237,7 @@ if (isset($airport)) {
 					location.reload();
 				}, 120000);
 			});
+			<?php if (isset($airport)) { ?>
 			function updateRunway(runway, type) {
 				$.ajax({
 					url: "update_runway.php",
@@ -251,6 +252,7 @@ if (isset($airport)) {
 					},
 				});
 			}
+			<?php } ?>
 		</script>
 		<?php } else { ?>
             <h2 class="text-center no-results">No flights here &#128532</h2>
