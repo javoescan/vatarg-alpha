@@ -124,9 +124,9 @@ if (isset($airport)) {
         <div class="title-container">
             <a 
                 class="back-btn"
-                href="/index.php"
+                href="./index.php"
             >
-                <img src="/img/back.png" class="back-btn-image" alt="back-button" />
+                <img src="./img/back.png" class="back-btn-image" alt="back-button" />
 			</a>
             <h2 class="text-center title">VATSIM Argentina Alpha System 2.0</h2>
         </div>
