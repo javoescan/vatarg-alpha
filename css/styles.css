@@ -62,3 +62,38 @@ button {
 .table {
   text-align: center;
 }
+
+.no-results {
+  margin-top: 40px;
+}
+
+.search-container {
+  flex: 0.6;
+}
+
+.selectors {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.runways-selector {
+  flex: 1;
+}
+
+.runway-selector {
+  display: flex;
+  align-items: flex-end;
+  margin-left: 30px;
+  justify-content: center;
+}
+
+.runway-btn {
+  width: 80px;
+  margin-left: 20px;
+}
+
+.runway-active {
+  background-color: #294475;
+  color: white;
+}

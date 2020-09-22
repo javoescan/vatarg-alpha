@@ -91,8 +91,21 @@ usort($departures, function($a, $b) {
 
 $storeData = [];
 
-$localFile = file_get_contents("data.txt");
+$localFile = file_get_contents("flights_data.json");
 $storedData = json_decode($localFile, true);
+
+$activeRunwaysFile = file_get_contents("active_runways.json");
+$activeRunways = json_decode($activeRunwaysFile, true);
+
+if (isset($airport)) {
+	if (isset($activeRunways[$airport])) {
+		$activeDepRunway = $activeRunways[$airport]["dep"];
+		$activeArrRunway = $activeRunways[$airport]["arr"];
+	} else {
+		$activeDepRunway = array_key_first($data[$airport]["departures"]);
+		$activeArrRunway = array_key_first ($data[$airport]["departures"]);
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -117,7 +130,53 @@ $storedData = json_decode($localFile, true);
 			</a>
             <h2 class="text-center title">VATSIM Argentina Alpha System 2.0</h2>
         </div>
-  		<input class="form-control text-center" id="search-input" type="text" placeholder="Filtrar" />
+		<?php if (count($departures)) { ?>
+		<div class="selectors">
+			<?php if (isset($airport)) {
+				?>
+					<div class="runways-selector">
+						<div class="runway-selector">
+							<h5>DEP</h5>
+							<?php
+								foreach ($data[$airport]["departures"] as $runway => $_) {
+									?>
+										<div>
+											<button 
+												class="btn btn-light runway-btn <?= $runway == $activeDepRunway ? 'runway-active' : ''?>"
+												onclick="updateRunway(<?=$runway?>, 0)"
+											>
+												<?=$runway?>
+											</button>
+										</div>
+									<?php 
+								}
+							?>
+						</div>
+						<div class="runway-selector">
+							<h5>ARR</h5>
+							<?php
+								foreach ($data[$airport]["departures"] as $runway => $_) {
+									?>
+										<div>
+											<button
+												class="btn btn-light runway-btn <?= $runway == $activeArrRunway ? 'runway-active' : ''?>"
+												onclick="updateRunway(<?=$runway?>, 1)"
+											>
+												<?=$runway?>
+											</button>
+										</div>
+									<?php 
+								}
+							?>
+						</div>
+					</div>
+				<?php
+				}
+			?>
+			<div class="search-container">
+				<input class="form-control text-center" id="search-input" type="text" placeholder="Filtrar" />
+			</div>
+		</div>
 		<table class="table table-striped">
 			<thead class="thead-dark">
 				<tr>
@@ -178,7 +237,24 @@ $storedData = json_decode($localFile, true);
 					location.reload();
 				}, 120000);
 			});
+			function updateRunway(runway, type) {
+				$.ajax({
+					url: "update_runway.php",
+					type: 'POST',
+					data: {
+						airport: '<?=$airport?>',
+						runway: runway,
+						type: type,
+					},
+					success: function(result){
+						location.reload();
+					},
+				});
+			}
 		</script>
+		<?php } else { ?>
+            <h2 class="text-center no-results">No flights here &#128532</h2>
+		<?php } ?>
 	</body>
 </html>
 
@@ -200,7 +276,7 @@ function generateTransponder($flight) {
 	} else if (getPrefixAirport($flight["planned_destairport"]) === "SA") {
 		$transpondersRange = $transponders["nat"];
 	} else {
-		$transpondersRange = $transponders["INT"];
+		$transpondersRange = $transponders["int"];
 	}
 	do {
 		$transponder = rand($transpondersRange[0], $transpondersRange[1]);
@@ -276,13 +352,20 @@ function getPalomarDeparture($flight) {
 
 function getSID($departure, $route) {
 	global $data;
+	global $activeDepRunway;
+	global $activeRunways;
 	$sid = "";
 	$airport = $data[$departure];
-	if (array_values($airport["departures"])[0] !== null) {
+	if (isset($activeDepRunway)) {
+		$departures = array_values($airport["departures"][$activeDepRunway]);
+	} else if (isset($activeRunways[$departure])) {
+		$departures = array_values($airport["departures"])[$activeRunways[$airport]["dep"]];
+	} else if (array_values($airport["departures"])[0] !== null) {
 		$departures = array_values($airport["departures"])[0];
 	}
+	
 	$arr = explode(' ', trim($route));
-	$plannedDeparture = $arr[0]; 
+	$plannedDeparture = $arr[0];
 	if (in_array($plannedDeparture, $departures)) {
 		$sid = $plannedDeparture;
 	} else {
@@ -315,4 +398,4 @@ function getInitialClimb($flight) {
 }
 
 $encodedString = json_encode($storeData);
-file_put_contents('data.txt', $encodedString);
+file_put_contents('flights_data.json', $encodedString);

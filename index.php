@@ -22,6 +22,7 @@
         <button type="button" class="btn btn-light" id="sadf">SADF</button>
         <button type="button" class="btn btn-light" id="sadp">SADP</button>
         <button type="button" class="btn btn-light" id="sadm">SADM</button>
+        <button type="button" class="btn btn-light" id="saar">SAAR</button>
         <button type="button" class="btn btn-light" id="sazm">SAZM</button>
         <button type="button" class="btn btn-light" id="sazn">SAZN</button>
         <button type="button" class="btn btn-light" id="sazs">SAZS</button>
