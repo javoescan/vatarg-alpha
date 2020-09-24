@@ -161,7 +161,7 @@ if (isset($airport)) {
 										<div>
 											<button
 												class="btn btn-light runway-btn <?= $runway == $activeArrRunway ? 'runway-active' : ''?>"
-												onclick="updateRunway(<?=$runway?>, 1)"
+												onclick="updateRunway('<?=$runway?>', 1)"
 											>
 												<?=$runway?>
 											</button>
