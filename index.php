@@ -11,8 +11,21 @@
     <script src="./js/bootstrap.min.js"></script>
   </head>
   <body>
+    <div id="login" class="center_logo text-center d-none">
+      <img src="img/logo_vatsimar.png" class="img-fluid mt-5 mb-5"/>
+      <div class="text-center mt-5">
+        <h1 class="text-white">Alpha System 2.0</h1>
+        <div id="acceso">
+          <a href="modulo/login.php?login=true" class="btn btn-outline-light m-2"><span class="pl-4 pr-4">Login</span></a>
+        </div>
+      </div>
+      <div class="text-white text-center font-weight-bold w-100 mt-5">© 2020</div>
+    </div>
+    <div id="logged" class="d-none">
     <div class="title-container">
+      <h2 class="ml-3 text-white name"></h2>  
       <h2 class="text-center title">VATSIM Argentina Alpha System 2.0</h2>
+      <h2 class="mr-3 "><a href="#" class="text-white" id="logout">Logout</a></h2>
     </div>
     <div class="firs-container">
       <div class="fir-container" id="saef">
@@ -71,9 +84,10 @@
         <button type="button" class="btn btn-light" id="SAWH">SAWH</button>
       </div>
     </div>
+    </div>
   </body>
 </html>
-
+<script src="./js/scripts.js?v=<?=time()?>"></script>
 <script>
   $("button").click(function() {
     if (this.id.includes("fir")) {

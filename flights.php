@@ -120,15 +120,16 @@ if (isset($airport)) {
 		<script src="./js/jquery-3.5.1.slim.min.js"></script>
 		<script src="./js/bootstrap.min.js"></script>
 	</head>
-	<body>
+	<body class="d-none">
         <div class="title-container">
-            <a 
-                class="back-btn"
-                href="./index.php"
-            >
-                <img src="./img/back.png" class="back-btn-image" alt="back-button" />
-			</a>
+            <div>
+                <a class="back-btn d-inline" href="./index.php">
+                    <img src="./img/back.png" class="back-btn-image" alt="back-button">
+    			</a>
+                <h4 class="pl-2 ml-2 text-white name d-inline border-left">Esteban Palacios</h4> 
+            </div>
             <h2 class="text-center title">VATSIM Argentina Alpha System 2.0</h2>
+            <h4 class="mr-3 "><a href="#" class="text-white" id="logout">Logout</a></h4>
         </div>
 		<?php if (count($departures)) { ?>
 		<div class="selectors">
@@ -143,7 +144,7 @@ if (isset($airport)) {
 										<div>
 											<button 
 												class="btn btn-light runway-btn <?= $runway == $activeDepRunway ? 'runway-active' : ''?>"
-												onclick="updateRunway(<?=$runway?>, 0)"
+												onclick="updateRunway('<?=$runway?>', 0)"
 											>
 												<?=$runway?>
 											</button>
@@ -221,7 +222,7 @@ if (isset($airport)) {
 		</table>
 		<script>
 			$(document).ready(function(){
-				$("#search-input").on("keyup", function() {
+			    $("#search-input").on("keyup", function() {
 					var value = $(this).val().toLowerCase();
 					localStorage.setItem('filter', value);
 					$("#flights tr").filter(function() {
@@ -257,6 +258,37 @@ if (isset($airport)) {
 		<?php } else { ?>
             <h2 class="text-center no-results">No flights here &#128532</h2>
 		<?php } ?>
+        <script>
+            $("#logout").click(function(e){
+				e.preventDefault();
+				$.ajax({url: "modulo/logout.php"});
+				window.localStorage.clear(); 
+				window.location.href = "index.php"; 
+            });
+            $.ajax({
+				url: "modulo/is_logged.php",
+				crossDomain: true,
+				dataType: 'text',
+				async: false,
+				success: function(response){
+					var Storage=window.localStorage.getItem('token');
+					if(response=='false' && Storage === null){
+						window.location.href = "index.php"; 
+					}else{
+						if(Storage!==response){
+							window.localStorage.clear();
+							window.location.href = "index.php";
+						}
+					}
+				}
+            });
+			$(document).ready(function(){
+			    $('body').removeClass('d-none');
+			    userStorage=window.localStorage.getItem('user'); 
+                user=JSON.parse(userStorage); 
+                $('.name').text(user.data.personal.name_full); 
+      		});
+    </script>
 	</body>
 </html>
 
