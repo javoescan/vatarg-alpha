@@ -39,7 +39,17 @@
 
 .title {
   color: white;
-  flex: 1;
+  position: absolute;
+}
+
+.logout-text {
+  position: absolute;
+  right: 0;
+}
+
+.controller-name {
+  position: absolute;
+  left: 0;
 }
 
 #search-input {

@@ -122,14 +122,14 @@ if (isset($airport)) {
 	</head>
 	<body class="d-none">
         <div class="title-container">
-            <div>
+            <div class="controller-name">
                 <a class="back-btn d-inline" href="./index.php">
                     <img src="./img/back.png" class="back-btn-image" alt="back-button">
     			</a>
-                <h4 class="pl-2 ml-2 text-white name d-inline border-left">Esteban Palacios</h4> 
+                <h4 class="pl-2 ml-2 text-white name d-inline border-left">Controller name</h4> 
             </div>
             <h2 class="text-center title">VATSIM Argentina Alpha System 2.0</h2>
-            <h4 class="mr-3 "><a href="#" class="text-white" id="logout">Logout</a></h4>
+            <h4 class="mr-3 logout-text"><a href="#" class="text-white" id="logout">Logout</a></h4>
         </div>
 		<?php if (count($departures)) { ?>
 		<div class="selectors">

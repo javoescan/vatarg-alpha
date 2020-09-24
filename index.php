@@ -23,9 +23,9 @@
     </div>
     <div id="logged" class="d-none">
       <div class="title-container">
-        <h2 class="ml-3 text-white name"></h2>  
+        <h4 class="ml-3 text-white name controller-name"></h4>
         <h2 class="text-center title">VATSIM Argentina Alpha System 2.0</h2>
-        <h4 class="mr-3 "><a href="#" class="text-white" id="logout">Logout</a></h4>
+        <h4 class="mr-3 logout-text"><a href="#" class="text-white" id="logout">Logout</a></h4>
       </div>
       <div class="firs-container">
         <div class="fir-container" id="saef">
