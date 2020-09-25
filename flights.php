@@ -393,7 +393,7 @@ function getSID($departure, $route) {
 	if (isset($activeDepRunway)) {
 		$departures = array_values($airport["departures"][$activeDepRunway]);
 	} else if (isset($activeRunways[$departure])) {
-		$departures = array_values($airport["departures"])[$activeRunways[$airport]["dep"]];
+		$departures = array_values($airport["departures"][$activeRunways[$departure]["dep"]]);
 	} else if (array_values($airport["departures"])[0] !== null) {
 		$departures = array_values($airport["departures"])[0];
 	}
