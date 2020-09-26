@@ -203,6 +203,12 @@ if (isset($airport)) {
 						if (!isset($storeData[$flight["callsign"]])) {
 							$storeData[$flight["callsign"]] = [
 								"transponder" => $transponder,
+								"lastAccess" => time(),
+							];
+						} else {
+							$storeData[$flight["callsign"]] = [
+								"transponder" => $storeData[$flight["callsign"]]["transponder"],
+								"lastAccess" => time(),
 							];
 						}
 
@@ -323,7 +329,7 @@ function generateTransponder($flight) {
 	);
 	if (strlen($transponder) === 3) {
 		$transponder = "0" . $transponder;
-	} else if (strlen($transponder) === 3) {
+	} else if (strlen($transponder) === 2) {
 		$transponder = "00" . $transponder;
 	}
 	return $transponder;
@@ -431,5 +437,10 @@ function getInitialClimb($flight) {
 	return $airport["initClimb"] !== null ? $airport["initClimb"] : "BY ATC";
 }
 
-$encodedString = json_encode($storeData);
+$currentTime = time();
+$updatedData = array_filter($storeData, function($flight) use ($currentTime) {
+	$difference = $currentTime - $flight["lastAccess"];
+	return $difference < 7200;
+});
+$encodedString = json_encode($updatedData);
 file_put_contents('flights_data.json', $encodedString);
