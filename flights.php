@@ -89,8 +89,6 @@ usort($departures, function($a, $b) {
     return strcmp($a["planned_deptime"], $b["planned_deptime"]);
 });
 
-$storeData = [];
-
 $localFile = file_get_contents("flights_data.json");
 $storedData = json_decode($localFile, true);
 
@@ -200,14 +198,14 @@ if (isset($airport)) {
 						$departure = getDeparture($flight);
 						$initialClimb = getInitialClimb($flight);
 
-						if (!isset($storeData[$flight["callsign"]])) {
-							$storeData[$flight["callsign"]] = [
+						if (!isset($storedData[$flight["callsign"]])) {
+							$storedData[$flight["callsign"]] = [
 								"transponder" => $transponder,
 								"lastAccess" => time(),
 							];
 						} else {
-							$storeData[$flight["callsign"]] = [
-								"transponder" => $storeData[$flight["callsign"]]["transponder"],
+							$storedData[$flight["callsign"]] = [
+								"transponder" => $storedData[$flight["callsign"]]["transponder"],
 								"lastAccess" => time(),
 							];
 						}
@@ -438,7 +436,7 @@ function getInitialClimb($flight) {
 }
 
 $currentTime = time();
-$updatedData = array_filter($storeData, function($flight) use ($currentTime) {
+$updatedData = array_filter($storedData, function($flight) use ($currentTime) {
 	$difference = $currentTime - $flight["lastAccess"];
 	return $difference < 7200;
 });
