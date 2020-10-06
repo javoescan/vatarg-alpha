@@ -39,6 +39,7 @@
           <button type="button" class="btn btn-light" id="sazm">SAZM</button>
           <button type="button" class="btn btn-light" id="sazn">SAZN</button>
           <button type="button" class="btn btn-light" id="sazs">SAZS</button>
+          <button type="button" class="btn btn-light" id="sazb">SAZB</button>
           <button type="button" class="btn btn-light" id="sazr">SAZR</button>
           <button type="button" class="btn btn-light" id="sazy">SAZY</button>
           <button type="button" class="btn btn-light" id="saap">SAAP</button>
