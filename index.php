@@ -36,13 +36,14 @@
           <button type="button" class="btn btn-light" id="sadp">SADP</button>
           <button type="button" class="btn btn-light" id="sadm">SADM</button>
           <button type="button" class="btn btn-light" id="saar">SAAR</button>
+          <button type="button" class="btn btn-light" id="saap">SAAP</button>
           <button type="button" class="btn btn-light" id="sazm">SAZM</button>
           <button type="button" class="btn btn-light" id="sazn">SAZN</button>
           <button type="button" class="btn btn-light" id="sazs">SAZS</button>
           <button type="button" class="btn btn-light" id="sazb">SAZB</button>
           <button type="button" class="btn btn-light" id="sazr">SAZR</button>
+          <button type="button" class="btn btn-light" id="sazr">SAZG</button>
           <button type="button" class="btn btn-light" id="sazy">SAZY</button>
-          <button type="button" class="btn btn-light" id="saap">SAAP</button>
         </div>
         <div class="fir-container" id="sacf">
           <button type="button" class="btn btn-primary" id="fir-sacf">SACF</button>

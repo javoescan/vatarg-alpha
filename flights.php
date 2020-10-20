@@ -438,7 +438,7 @@ function getInitialClimb($flight) {
 $currentTime = time();
 $updatedData = array_filter($storedData, function($flight) use ($currentTime) {
 	$difference = $currentTime - $flight["lastAccess"];
-	return $difference < 7200;
+	return $difference < 14400;
 });
 $encodedString = json_encode($updatedData);
 file_put_contents('flights_data.json', $encodedString);

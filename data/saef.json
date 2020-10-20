@@ -120,6 +120,15 @@
     },
     "initClimb": null
   },
+  "SAZG": {
+    "latitude": "-36",
+    "longitude": "-64",
+    "departures": {
+      "16": null,
+      "34": null
+    },
+    "initClimb": null
+  },
   "SAZN": {
     "latitude": "-38",
     "longitude": "-68",
