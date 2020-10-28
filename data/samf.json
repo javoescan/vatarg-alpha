@@ -9,13 +9,13 @@
     "longitude": "-68",
     "departures": {
       "18": [
-        "UMKAL1E", "UMKAL1A", "ESITO1E", "ESITO1A",
+        "UMKAL1E", "ESITO1E", "ESITO1A",
         "DOSLO1E", "KAMUV1E", "MEBRA1E", "PAPIR1E", "SALBO1E",
         "DOSLO1G", "KAMUV1G", "MEBRA1G", "PAPIR1G", "SALBO1G",
         "UMKAL1G", "ESITO1G"
       ],
       "36": [
-        "UMKAL1E", "UMKAL1A", "ESITO1E", "ESITO1A",
+        "UMKAL1A", "ESITO1E", "ESITO1A",
         "DOSLO1A", "KAMUV1A", "MEBRA1A", "PAPIR1A", "SALBO1A",
         "DOSLO1C", "KAMUV1C", "MEBRA1C", "PAPIR1C", "SALBO1C",
         "UMKAL1C", "ESITO1C"
